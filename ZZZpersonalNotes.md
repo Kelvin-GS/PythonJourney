@@ -5,7 +5,7 @@ The Python Standard Library has some built in functions. Some of these useful fu
 | Function              | Meaning                                               |
 | :-------------------- | :---------------------------------------------------- |
 | `len(x)`            | **length** of x                                 |
-| `pow(x, n)`         | x to the**power** n (x**n)                      |
+| `pow(x, n)`         | x to the**power** n (x\*\*n)                    |
 | `abs(x)`            | **absolute value** of x                         |
 | `round(x, n)`       | **round** x to n digits after the decimal point |
 | `min(x, y, z, ...)` | the**minimum** value of x, y, z, ...            |
@@ -23,17 +23,17 @@ Some common type conversion functions are:
 
 #### Modules
 
-print(math.pi)   # 𝜋 (3.3.1415...)
-print(math.e)    # Euler constant (2.7182...)
+print(math.pi) # 𝜋 (3.3.1415...)
+print(math.e) # Euler constant (2.7182...)
 
 #### String Concatenation
 
 We observe that:
 
-* the `print()` adds one space in between strings. This can be changed with the `sep` argument of the `print()` function.
-* At the end of the line, `print()` adds a newline character. This can be changed with the `end` argument of the `print()` function.
-* with the `+` operator strings are concatenated without extra spaces in between
-* string duplication with the `*` operator saves typing time
+- the `print()` adds one space in between strings. This can be changed with the `sep` argument of the `print()` function.
+- At the end of the line, `print()` adds a newline character. This can be changed with the `end` argument of the `print()` function.
+- with the `+` operator strings are concatenated without extra spaces in between
+- string duplication with the `*` operator saves typing time
 
   ```
   print(word1, word2, word3, sep = "***", end = ";)-")    # Instead of white space, adds what ever is in "sep"
@@ -43,11 +43,11 @@ We observe that:
 
 Often we need to manipulate strings:
 
-* search for a character or a substring,
-* count the numberof occurances,
-* replace one or more characters by others,
-* split the string,
-* etc.
+- search for a character or a substring,
+- count the numberof occurances,
+- replace one or more characters by others,
+- split the string,
+- etc.
 
 Python has an extensive list of string methods. Some useful methods are:
 
@@ -78,32 +78,32 @@ The **general** syntax is:
 
 where
 
-* `start` is the index of the first element (default is 0),
-* `stop` is the index of the last element (**not included**, default is len(list_name)) and
-* `step` is the number of elements to skip (default is 1).
+- `start` is the index of the first element (default is 0),
+- `stop` is the index of the last element (**not included**, default is len(list_name)) and
+- `step` is the number of elements to skip (default is 1).
 
 **Example:**
 
 `print(s[0:4])   # select characters with indices 0 up to 3`
 
-|    Slice    | Meaning                                                                       |
-| :----------: | ----------------------------------------------------------------------------- |
-|   `s[i]`   | character at index `i` (counting starts at 0)                               |
-|  `s[i:j]`  | characters `i` up to `j-1` (character `j` **not** included)       |
-|  `s[i:]`  | characters from `i` up to end of string                                     |
-|  `s[:j]`  | characters from start up to `j-1` (character  `j` **not** included) |
-| `s[i:j:k]` | characters from `i` up to `j-1` in steps of `k`                         |
-|   `s[:]`   | all characters                                                                |
-| `s[::-1]` | all characters in**reversed** order                                     |
+|    Slice    | Meaning                                                                      |
+| :----------: | ---------------------------------------------------------------------------- |
+|   `s[i]`   | character at index `i` (counting starts at 0)                              |
+|  `s[i:j]`  | characters `i` up to `j-1` (character `j` **not** included)      |
+|  `s[i:]`  | characters from `i` up to end of string                                    |
+|  `s[:j]`  | characters from start up to `j-1` (character `j` **not** included) |
+| `s[i:j:k]` | characters from `i` up to `j-1` in steps of `k`                        |
+|   `s[:]`   | all characters                                                               |
+| `s[::-1]` | all characters in**reversed** order                                    |
 
 #### Basic formatting
 
 To use `f` strings:
 
-* place an `f` or an `F` before the string to be formatted
-* type accolades `{}` (_place holders_) around the variable to be formatted
-* let the variable be followed by a colon `:`
-* specify the datatype of the variable:
+- place an `f` or an `F` before the string to be formatted
+- type accolades `{}` (_place holders_) around the variable to be formatted
+- let the variable be followed by a colon `:`
+- specify the datatype of the variable:
 
 | Character | Datatype |
 | :-------: | -------- |
@@ -111,7 +111,7 @@ To use `f` strings:
 |   `d`   | integer  |
 |   `f`   | float    |
 
-* print the `f` string with the `print()` function
+- print the `f` string with the `print()` function
 
 The syntax to format a variable is
 
@@ -121,11 +121,11 @@ The syntax to format a variable is
 
 with:
 
-* `variable`: the name of the variable to be formatted
-* `x`: the number of characters (places) to be used
-* `type`: the datatype of the variable to be formatted (`s`, `d` or `f`)
+- `variable`: the name of the variable to be formatted
+- `x`: the number of characters (places) to be used
+- `type`: the datatype of the variable to be formatted (`s`, `d` or `f`)
 
-```
+```python
 char = "a"
 n = 23
 print(f"The character {char:5s} occurs {n:10d} times")  # THis leaves 5 spaces for the variable "char" and 10 spaces for "n"
@@ -133,7 +133,7 @@ print(f"The character {char:5s} occurs {n:10d} times")  # THis leaves 5 spaces f
 # Output is : The character a     occurs         23 times
 ```
 
-```
+```python
 bmi = 21.718
 name = "John"
 print(f"{name:10s} has a BMI of {bmi:7.1f}.")   # Specifies to leave 1 decimal place
@@ -214,14 +214,14 @@ An `if-else`-statement has the following syntax:
     elif condition2:
         # instruction(s) to be executed if condition1 is False and condition2 is True
     else:
-        # instruction(s) to be executed if conditions above are False   
+        # instruction(s) to be executed if conditions above are False
 ```
 
 **Important notes**
 
-* the `condition` can be a **composite** expression.
-* the colon `:` is **mandatory**
-* the instruction(s) to be executed are **indented**
+- the `condition` can be a **composite** expression.
+- the colon `:` is **mandatory**
+- the instruction(s) to be executed are **indented**
 
 #### The `while` loop
 
@@ -231,7 +231,7 @@ The syntax is:
 
 ```Python
     while condition:
-        # instruction(s) to be executed if condition is True  
+        # instruction(s) to be executed if condition is True
 ```
 
 The `condition` is an (composite) expression containing a loop control variable whose value changes in the `while` loop.
@@ -258,16 +258,16 @@ The syntax is:
 
 ```Python
     for variable in sequence:
-        # instruction(s) to be executed for each value of variable  
+        # instruction(s) to be executed for each value of variable
 ```
 
 where:
 
-* `variable`: a loop variable (placeholder) that takes the value of each element in the sequence, one at a time
-* `sequence`: a collection of elements
-  * characters (as in a string)
-  * range of numbers
-  * ...
+- `variable`: a loop variable (placeholder) that takes the value of each element in the sequence, one at a time
+- `sequence`: a collection of elements
+  - characters (as in a string)
+  - range of numbers
+  - ...
 
 #### The `range()` function
 
@@ -276,14 +276,14 @@ The `range()` function creates a sequence of **whole** numbers.
 The syntax is:
 
 ```Python
-    range(start, stop, step)  
+    range(start, stop, step)
 ```
 
 where
 
-* `start`: start value (optional, default 0)
-* `stop`: stop value (obligatory, **not included in result**)
-* `step`: step size (optional, can be negative, default 1)
+- `start`: start value (optional, default 0)
+- `stop`: stop value (obligatory, **not included in result**)
+- `step`: step size (optional, can be negative, default 1)
 
 ```
 for i in range(3, 11):     # first = 3, last = 10
@@ -306,7 +306,7 @@ The syntax is:
 ```Python
     for variable1 in sequence1:
         for variable2 in sequence2:
-            # instruction(s) to be executed for each value of variable1 and variable2  
+            # instruction(s) to be executed for each value of variable1 and variable2
 ```
 
 Suppose you want to print all possible combinations of two dice. This can be achieved by:
@@ -338,3 +338,133 @@ if prime:
 else:
     print(n, "is not a prime number")
 ```
+
+#### Syntax of a Function
+
+The syntax of a function in Python is as follows:
+
+```python
+    def function_name(parameters):
+        statement(s)
+        return variable
+```
+
+In this syntax:
+
+- `def`: a keyword that marks the beginning of the function header.
+- `function_name`: the name of the function
+- `parameters`: the values passed to the function (optional)
+- `statement(s)`: the (**indented**) block of statements that perform the operations of the function.
+- `return variable`: is used to return a value from the function (optional)
+
+Note that the statements in the function are indented. This is how Python knows that these statements are part of the function.
+
+A first example of a function is the function `mean()` that calculates the mean of a list of numbers. The function is defined as follows:
+
+```python
+    def mean(numbers):
+        total = sum(numbers)
+        length = len(numbers)
+        average = total / length
+        return average
+```
+
+The name of the function is `mean`, and it takes one parameter, `numbers`. The function calculates the sum of the numbers in the list, and divides this sum by the length of the list. The result (average) is returned by the function.
+
+**Functions can have multiple return values**. For example, the following function `circle()` computes the area and circumference of a circle with radius `r`. The function takes 1 argument, `r`, and returns the area and circumference of the circle.
+
+```python
+    import math
+    def circle(r):
+        area = math.pi*r**2
+        circumference = 2*math.pi*r
+        return area, circumference
+```
+
+```python
+# import math module
+import math
+# function definition
+def circle(r):
+    area = math.pi*r**2
+    circumference = 2*math.pi*r
+    return area, circumference
+
+# test instructions
+r = 5
+area, circumference = circle(r) # Assigns the returns to separate variables
+print("Area:", round(area, 2))
+print("Circumference", round(circumference, 2))
+```
+
+#### Variable scope
+
+The scope of a variable is the part of the program where the variable is accessible. In Python, variables defined inside a function are not accessible outside the function. These variables have local scope. Variables defined outside a function are accessible inside the function. These variables have global scope. When you call a function, Python first looks for the variable in the local namespace. If the variable is not found, Python looks for the variable in the global namespace. If the variable is not found in the global namespace, Python looks for the variable in the built-in namespace.
+
+#### Default arguments
+
+You can specify default values for the arguments of a function. If you call the function without specifying the value of an argument, the default value is used. An example of a built-in function with default arguments is the function `round()`. The function `round()` takes 2 arguments: `number` and `ndigits`. The default value of `ndigits` is 0. If you call the function `round()` with only 1 argument, the default value 0 is used and the number is rounded to the nearest integer.
+
+An example with a user-defined function is the function `kin_energy()` where we make `g` a default argument. If you call the function `kin_energy()` without specifying the value of `g`, the default value 9.81 is used:
+
+```
+# function definition
+def kin_energy(m, v0, h, g = 9.81):	# This step specifies a default value for g
+    KE = 1/2*m*v0**2 - m*g*h
+    return KE
+
+# test instructions
+m = 1.25
+v0 = 10
+h = 5
+KE = kin_energy(m, v0, h) # g is not provided
+print("On Earth", round(KE, 2), "J")
+```
+
+#### Lambda functions
+
+A lambda function is a small anonymous function. A lambda function can take any number of arguments, but can only have one expression. The syntax of a lambda function is as follows:
+
+```python
+lambda argument(s): expression
+```
+
+In this syntax:
+
+* `lambda`: a keyword that marks the beginning of the lambda function.
+* `argument(s)`: the argument(s) of the lambda function.
+* `expression`: the expression that is evaluated and returned by the lambda function.
+
+For example, the following lambda function calculates the square of a number:
+
+```python
+square = lambda x: x**2
+```
+
+You can call the lambda function with an argument.
+
+```python
+# lambda function definition
+square = lambda x: x**2
+# test instructions
+square(3)
+```
+
+Lambda functions can include multiple arguments. For example, the following lambda function calculates the sum of two numbers:
+
+```python
+add = lambda x, y: x + y
+```
+
+Lambda functions can include if-else-statements. For example, the following lambda function returns the string 'positive' if the number is positive, and 'negative' if the number is negative:
+
+```python
+# Lambda function definition
+sign = lambda x: "positive" if x > 0 else "negative"
+
+# Test instructions
+print(sign(3))
+print(sign(-3))
+```
+
+...
