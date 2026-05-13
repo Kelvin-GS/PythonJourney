@@ -467,4 +467,293 @@ print(sign(3))
 print(sign(-3))
 ```
 
-...
+#### Creating a List
+
+You can create a list by **enclosing the values in square brackets and separating them with commas**.
+
+Check the following examples:
+
+```python
+# Creating an empty list
+L = []
+print(L)
+
+# List of numbers
+decimal = [8, -1, 4.2, 75, -0.93, 3]
+print(decimal)
+
+# List of strings
+words = ["hello", "world", "python", "is", "cool", "yeah"]
+print(words)
+
+# List of mixed data types
+data = ["John", 1.75, 70]
+print(data)
+```
+
+#### Other ways to create a list
+
+There are some other ways to create a list:
+
+* Using the `list()` constructor to convert a string to a list.
+* Using the `split()` method to split a string into a list.
+
+```python
+# Using the list() constructor to convert a string to a List
+list2 = list("Hello")
+print(list2)
+
+# Using list() and range() to create a list of numbers
+numbers = list(range(10))
+print(numbers)
+```
+
+#### Accessing elements by slicing
+
+You can access a range of elements in a list using slicing. The syntax for slicing is similar to the syntax for slicing a string. The syntax is:
+
+```python
+    list_name[start:stop:step]
+```
+
+where
+
+* `start` is the index of the first element (default is 0),
+* `stop` is the index of the last element (**not included**, default is len(list_name)) and
+* `step` is the number of elements to skip (default is 1).
+
+The following table summarizes some indexing and slicing possibilities (the variable `L` represents a string):
+
+|    Slice    | Meaning                                                                   |
+| :----------: | ------------------------------------------------------------------------- |
+|   `L[i]`   | element at index `i` (counting starts at 0)                             |
+|  `L[i:j]`  | elements `i` up to `j-1` (element `j` **not** included)       |
+|  `L[i:]`  | elements from `i` up to end of list                                     |
+|  `L[:i]`  | elements from start up to `i-1` (element  `i` **not** included) |
+| `L[i:j:k]` | elements from `i` up to `j-1` in steps of `k`                       |
+|   `L[:]`   | all elements                                                              |
+| `L[::-1]` | all elements in**reversed** order                                   |
+
+#### Iterating over a List
+
+Just as with strings, you can iterate over the elements in a list using a `for` loop. Iterating can be index based or element based. The following examples show both methods.
+
+```python
+# Index based iteration
+words = ["hello", "world", "python", "is", "cool", "yeah"]
+for i in range(len(words)):
+    print(i, words[i])
+```
+
+```python
+# Element based iteration
+i = 0
+for word in words:
+    print(i, word)
+    i = i + 1
+```
+
+#### Adding elements to a list
+
+You can add elements to a list using the `append()` method. The `append()` method adds the element to the end of the list.
+
+```python
+    list_name.append(element)
+```
+
+Note that we don't write `L = L.append(element)` because the `append()` method **does not return a new list**. It modifies the original list.
+
+#### Extending a list
+
+You can add multiple elements to a list using the `extend()` method. The `extend()` method adds the elements of the list to the end of the list. Its basically the same as using the "+" operator to concatenate.
+
+```python
+    list_name.extend(list2)
+```
+
+Example:
+
+```python
+L = ["First element", "Second element"]
+L2 = ["Third element", "Fourth element", "Fifth element"]
+L.extend(L2)
+print(L)
+
+# Output: ['First element', 'Second element', 'Third element', 'Fourth element', 'Fifth element']
+```
+
+
+#### The `in` and `not in` operators
+
+You can check if an element is in a list using the `in` operator. You can also check if an element is not in a list using the `not in` operator.
+
+Example:
+
+```python
+L = ["apple", "banana", "cherry", "date"]
+"pear" in L		# Returns a boolean
+```
+
+#### List methods
+
+There are several methods that you can use with lists. We already encountered `append()` and `extend()`. Some of the other methods are:
+
+| Method                       | Meaning                                                   |
+| ---------------------------- | --------------------------------------------------------- |
+| `L.insert(index, element)` | adds `element` at a specific `index`                  |
+| `L.remove(element)`        | removes the first occurrence of `element` from the list |
+| `L.index(element)`         | returns the index of the first occurrence of `element`  |
+| `L.count(element)`         | returns the number of occurrences of `element`          |
+| `L.sort()`                 | sorts the elements in the list                            |
+
+You can get a complete list of methods by typing
+
+* `dir(list)` or
+* the name of a list followed by a dot
+
+Note that the `sort()` method **modifies the original list**, such as the `append()`, `extend()`, `insert()` and `remove()` methods.
+
+#### Creating nested lists
+
+A list can contain other lists. This is called a **nested list**. You can access the elements in the nested list using multiple indices.
+
+Suppose we want to represent the following matrix $A$ (a two-dimensional array) in Python:
+
+$$
+A = \left [
+\begin{matrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9 \\
+10 & 11 & 12
+\end{matrix}
+\right ]
+$$
+
+We can use a nested list:
+
+```python
+    A = [ [1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12] ]
+```
+
+Note that each row of the matrix is a list: the matrix is a list of lists.
+
+The elements don't have to be of the same type. For example, the following list contains strings, floats and integers:
+
+```python
+    bmi_data = [["John", 1.75, 70], ["Mary", 1.65, 58], ["Tom", 1.80, 83], ["Alice", 1.70, 61]]
+```
+
+The sublists don't have to be of the same length. For example, the following list contains sublists of different lengths:
+
+```python
+    data = [[1, 2, 3], [4, 5], [6, 7, 8, 9]]
+```
+
+#### Accessing elements by a single index
+
+Accessing elements in a nested list is similar to accessing elements in a simple list. By using a single index, you can access the entire row. For example, to access the **second row** in the matrix $A$, you use the index `1`:
+
+```python
+A = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]
+A[-1]
+
+# Output: [10, 11, 12]
+```
+
+#### Accessing elements by multiple indices
+
+You can access the elements of a nested list using **multiple indices**. For example, to access the element 1.70 (height of Alice) in `bmi_data`, you use the indices `3` and `1`:
+
+```python
+bmi_data = [["John", 1.75, 70], ["Mary", 1.65, 58], ["Tom", 1.80, 83], ["Alice", 1.70, 61]]
+bmi_data[3][1] # height of Alice
+
+# Output is: 1.7
+```
+
+To compute the BMI of all persons in `bmi_data`, you can use a loop:
+
+```python
+bmi_data = [["John", 1.75, 70], ["Mary", 1.65, 58], ["Tom", 1.80, 83], ["Alice", 1.70, 61]]
+
+# element based indexing*
+for person in bmi_data:
+    bmi = person[2] / person[1]**2
+    print(person[0], "has a BMI of", round(bmi, 2))
+
+# index based indexing
+for i in range(len(bmi_data)):
+    bmi = bmi_data[i][2] / bmi_data[i][1]**2
+    print(bmi_data[i][0], "has a BMI of", round(bmi, 2))
+
+# Output:
+# John has a BMI of 22.86
+# Mary has a BMI of 21.3
+# Tom has a BMI of 25.62
+# Alice has a BMI of 21.11
+```
+
+#### Iterating over a nested list
+
+You can iterate over a nested list using nested loops. The outer loop iterates over the rows and the inner loop iterates over the elements in the row.
+
+This is how you can iterate element by element over the matrix $A$:
+
+```python
+A = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]
+for row in A:
+    for element in row:
+        print(element, end = " ")
+    print()
+```
+
+```python
+A = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]
+for i in range(len(A)):
+    for j in range(len(A[i])):
+        print(A[i][j], end = " ")
+    print()
+```
+
+#### List comprehension
+
+List comprehension is a concise way to create lists. It is a compact way to apply an operation to each element in a list. The syntax is:
+
+```python
+    [expression for item in list]
+```
+
+Some examples will explain the usage of list comprehension.
+
+Consider the following sequence of numbers:
+
+$$
+1^2,\quad 2^2,\quad 3^2,\quad ...,\quad 99^2,\quad 100^2
+$$
+
+Without list comprehension, we would write:
+
+```python
+    squares = []
+    for x in range(1, 101):
+        squares.append(x**2)
+```
+
+We can use list comprehension to create a list of the squares of the numbers from 1 to 100:
+
+```python
+    squares = [x**2 for x in range(1, 101)]
+```
+
+We can include an `if`-statement in the list comprehension. For example, to create a list of the squares of the even numbers from 1 to 100:
+
+```python
+    squares_even = [x**2 for x in range(1, 101) if x % 2 == 0]
+```
+
+The result is the following sequence:
+
+$$
+2^2,\quad 4^2,\quad 6^2,\quad ...,\quad 98^2,\quad 100^2
+$$
