@@ -582,7 +582,6 @@ print(L)
 # Output: ['First element', 'Second element', 'Third element', 'Fourth element', 'Fifth element']
 ```
 
-
 #### The `in` and `not in` operators
 
 You can check if an element is in a list using the `in` operator. You can also check if an element is not in a list using the `not in` operator.
@@ -757,3 +756,88 @@ The result is the following sequence:
 $$
 2^2,\quad 4^2,\quad 6^2,\quad ...,\quad 98^2,\quad 100^2
 $$
+
+#### Immutable objects
+
+Strings, ints and floats are immutable.  When you change a copy, the variable name refers to a new memory register.
+
+```python
+my_int = 27
+your_int = my_int
+print('my_int:', my_int)
+print('your_int:', your_int)
+
+# Output:
+# my_int: 27
+# your_int: 27
+
+your_int = your_int + 1
+print('my_int:', my_int)
+print('your_int:', your_int)
+
+# Output:
+# my_int: 27
+# your_int: 28
+```
+
+For strings, immutability also means that you cannot change individual characters or slices.
+
+```python
+a_string = "abc"
+print(a_string)
+a_string[1] = 'B'
+# This cell should give an error.
+```
+
+#### Mutable objects
+
+**Lists are mutable:** the individual elements of a list can be changed.
+
+Elements of a list do not contain values; they contain references to memory addresses.  If you change an element of a *shallow* copy, the original list also changes.
+
+```python
+a_list = [1,2,3]
+b_list = a_list
+print('a_list:', a_list)
+print('b_list:', b_list)
+print()
+
+# Output:
+# a_list: [1, 2, 3]
+# b_list: [1, 2, 3]
+```
+
+```python
+b_list[1] = 20
+print('a_list:', a_list)
+print('b_list:', b_list)
+
+# Output:
+# a_list: [1, 20, 3]
+# b_list: [1, 20, 3]
+```
+
+As you can see in the previous cell, we only changed the value of one element in ``b_list``, yet ``a_list`` changed as well. If this is not the behaviour you like for your program, you can make a *deep* copy.  A deep copy of a list is filled with new memory addresses, and these are filled with copies of the values.  One of the ways to do this is to use the `.copy()` method.
+
+```python
+a_list = [1,2,3]
+b_list = a_list.copy()	# This is a deep copy, creating immutability!!!
+print('a_list:', a_list)
+print('b_list:', b_list)
+print()
+
+b_list[1] = 20
+print('a_list:', a_list)
+print('b_list:', b_list)
+
+```
+
+```
+a_list: [1, 2, 3]
+b_list: [1, 2, 3]
+
+a_list: [1, 2, 3]
+b_list: [1, 20, 3]
+```
+
+...
