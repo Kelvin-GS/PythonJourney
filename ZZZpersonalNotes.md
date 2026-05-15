@@ -840,4 +840,177 @@ a_list: [1, 2, 3]
 b_list: [1, 20, 3]
 ```
 
+#### Creating tuples
+
+Tuples are a lot like lists. They are defined by **parentheses** `()`:
+
+```python
+    coord = (3, -2, 4)
+```
+
+#### Accessing tuple elements
+
+You can access the values in a tuple just like you can in a list:
+
+```python
+    print(coord[2]) # prints 4
+```
+
+#### Iterating over tuples
+
+You can iterate over tuples just like you can with lists: index based or element based.
+
+```python
+# index based iteration
+coord = (3, -2, 4)
+for i in range(len(coord)):
+    print(coord[i])
+
+# element based iteration
+for x in coord:
+    print(x)
+```
+
+#### Tuple concatenation and duplication
+
+You can **concatenate** tuples by using the `+` operator, just as with lists:
+
+```python
+    coord1 = (3, -2, 4)
+    coord2 = (1, 2, 3)
+    print(coord1 + coord2) # prints (3, -2, 4, 1, 2, 3)
+```
+
+You can also **duplicate** tuples by using the `*` operator, just as with lists:
+
+```python
+    coord = (3, -2, 4)
+    print(coord * 3) # prints (3, -2, 4, 3, -2, 4, 3, -2, 4)
+```
+
+#### Tuple manipulation
+
+With concatenation and duplication a new tuple is created. You can't change the values of a tuple once it's created: tuples are **immutable**. This is a key difference between tuples and lists.
+
+#### Dictionaries
+
+A dictionary in Python is a built-in data structure that allows you to store and retrieve data in the form of key-value pairs. Each unique key is associated with a specific value, enabling efficient data lookup and manipulation.
+
+A key in a dictionary must be unique and immutable, such as strings, numbers, or tuples. The values can be of any data type, including strings, numbers, lists and tuples.
+
+A value can be a single value or a list of values.
+
+Dictionaries are commonly used when you need to quickly access data based on unique identifiers, such as usernames, product IDs, or settings.
+
+#### Creating dictionaries
+
+Dictionaries are defined by **curly braces** `{}`. An **empty dictionary** is created by `{}`:
+
+```python
+    D = {}
+```
+
+The syntax for a non-empty dictionary is `key: value` pairs separated by commas:
+
+```python
+    D = {key1: value1, key2: value2, key3: value3, ...}
+```
+
+Suppose you want to store the atomic weights of some elements. Then you can create a dictionary as follows:
+
+```python
+    atoms = {'H': 1.01, 'He': 4.00, 'Li': 6.94, 'Na': 22.99, 'O': 16.00}
+```
+
+Some other examples are given below:
+
+```python
+# A dictorionary with list of values
+models = {'Audi': ['A4', 'A5', 'A6', 'A7', 'A8'], 'BMW': ['X1', 'X3', 'X5'], 'Mercedes': ['C-Class', 'E-Class']}
+print(models['BMW'][1])
+```
+
+#### Accessing dictionary elements
+
+To access the value associated with a key, you can use square brackets `[]`:
+
+```python
+    print(atoms['Li'])
+```
+
+#### Adding and modifying dictionary elements
+
+You can add a new key-value pair to a dictionary by assigning a value to a new key. For example, to add the atomic weight of carbon to the `atoms` dictionary:
+
+```python
+    atoms['C'] = 12.01
+```
+
+To modify an existing value, you can simply assign a new value to the key. Suppose you made a mistake in the atomic weight of sodium and want to correct it. Then you can do this by:
+
+```python
+    atoms['Na'] = 23.00
+```
+
+It is also possible to add values to an existing list of values. Suppose you want to add `A9` to the values list of the key `Audi`. You can do this by using the append method:
+
+```python
+# Add a new element to an existing list
+models = {'Audi': ['A4', 'A5', 'A6', 'A7', 'A8'], 'BMW': ['X1', 'X3', 'X5'], 'Mercedes': ['C-Class', 'E-Class']}
+models['Audi'].append('A9')
+print(models['Audi'])
+```
+
+#### Removing dictionary elements
+
+You can remove a key-value pair from a dictionary using the `del` keyword:
+
+```python
+    del atoms['He']
+```
+
+#### Searching for a key in a dictionary
+
+You can check if a key is present in a dictionary using the `in` operator or the `keys()` method. The `in` operator returns `True` if the key is present in the dictionary, and `False` otherwise. The `keys()` method returns a view object that displays a list of all the keys in the dictionary:
+
+```python
+    print('H' in atoms)         # True
+    print('H' in atoms.keys())  # True
+    print('Ne' in atoms)        # False
+```
+
+#### Searching for a value in a dictionary
+
+To check whether a value is present in a dictionary, you can use the `values()` method.
+
+```python
+values_list = atoms.values()
+print(values_list)
+list(values_list)  # convert the view to a list
+
+# Output:
+# dict_values([1.01, 4.0, 6.94, 22.99, 16.0])
+# [1.01, 4.0, 6.94, 22.99, 16.0]
+```
+
+If the values consist of list of values than you have to use the `in` operator for every list.
+
+```python
+models = {'Audi': ['A4', 'A5', 'A6', 'A7', 'A8'], 'BMW': ['X1', 'X3', 'X5'], 'Mercedes': ['C-Class', 'E-Class']}
+found = False
+for models_list in models.values():
+    if 'X1' in models_list:
+        found = True
+        break
+print(found)	# True
+```
+
+Note that, in this case, if we use the `in` operator just once in `models.values()` it will return `False` because `X1` is not a value of the dictionary `models`. If we would look for `['X1', 'X3', 'X5']` then it would return `True`:
+
+```python
+models = {'Audi': ['A4', 'A5', 'A6', 'A7', 'A8'], 'BMW': ['X1', 'X3', 'X5'], 'Mercedes': ['C-Class', 'E-Class']}
+print('X1' in models.values())			# False
+print(['X1', 'X3', 'X5'] in models.values())	# True
+```
+
 ...
