@@ -1013,4 +1013,322 @@ print('X1' in models.values())			# False
 print(['X1', 'X3', 'X5'] in models.values())	# True
 ```
 
-...
+#### File I/O - Introduction
+
+In the previous chapters, we either defined our data directly in the code, asked the user for data input, or generated it using functions. However, in many cases, we need to read data from external sources, such as files.
+
+A file is a collection of data stored on a disk. Files can be text files, which contain human-readable text (coded as ASCII or Unicode), or binary files, which contain data in a format that is not human-readable.
+
+#### File location
+
+When you want to open a file, you need to specify the file location. The file location can be either an absolute path or a relative path:
+
+* An **absolute path** specifies the location of a file from the root directory.
+* A **relative path** specifies the location of a file relative to the current working directory.
+
+For example, if you have a file called `example.txt` in the current working directory, you can open it using the relative path `'example.txt'`. If you have a file called `example.txt` in a directory called `files` in the current working directory, you can open it using the relative path `'files/example.txt'`.
+
+#### The `os` module
+
+The `os` module provides a way of using operating system dependent functionality. The `os` module provides a way to interact with the file system.
+
+The `os` module provides several functions to work with files and directories. Here are some of the most commonly used functions:
+
+* `os.getcwd()`: returns the current working directory.
+* `os.chdir(path)`: changes the current working directory to `path`.
+* `os.listdir(path)`: returns a list of all files and directories in the directory specified by `path`.
+* `os.mkdir(path)`: creates a new directory with the name `path`.
+
+```python
+import os
+
+# Get the current working directory
+print(os.getcwd())
+```
+
+`/home/kelvin/Documents/GitHub/PythonJourney`
+
+```python
+# Change the current working directory
+os.chdir('files')
+
+# Get the current working directory
+print(os.getcwd())
+```
+
+`/home/kelvin/Documents/GitHub/PythonJourney/files`
+
+```python
+os.chdir("..")
+
+# Get the current working directory
+print(os.getcwd())
+```
+
+`/home/kelvin/Documents/GitHub/PythonJourney`
+
+The `..` between the parentheses is a special path that refers to the parent directory of the current working directory. This is useful when you want **to move up one directory level**.
+
+#### Reading text files
+
+Reading data from a text files goes as follows:
+
+* open the file with the `open()` function
+* read the data using a a `for` loop, or the `read()`, `readline()`, or `readlines()` functions
+* close the file with the `close()` function
+
+#### Opening files
+
+You can open a file using the `open()` function. The `open()` function takes two arguments:
+
+* the name of the file you want to open and
+* the mode in which you want to open the file. The mode can be
+  * `"r"` for reading (default),
+  * `"w"` for writing, or
+  * `"a"` for appending.
+
+The `open()` function returns a file object, which you can use to read from or write data to the file. Using a `for` loop, you can iterate over the lines of the file.
+
+The file `data.txt` in the `files` directory. The file contains 5 lines of data. The following code reads the entire content of the file and prints it to the screen:
+
+```python
+f = open("files/data.txt", "r")
+for line in f:
+    print(line)
+f.close()
+```
+
+`8.1
+
+9
+
+4.6
+
+5.2
+
+7`
+
+The empty line between each line of output is due to the newline character `\n` at the end of each line in the file. The `print()` function adds another newline character by default. To avoid this, you can use the `end` parameter of the `print()` function and set it to an empty string. Another way is to get rid of the newline character using the `strip()` function. The `strip()` function removes leading and trailing whitespaces (including the newline character) from a string.
+
+```python
+f = open("files/data.txt", "r")
+for line in f:
+    print(line.strip())
+f.close()
+```
+
+`8.1 9 4.6 5.2 7`
+
+#### Built-in functions to read data from a file
+
+Python has several functions to read data from a file:
+
+* `read()`: read the entire content of the file as a **single string**
+* `readline()`: read **one line** of the file
+* `readlines()`: read **all lines** of the file and store them **in a list**
+
+To close the file, you can use the function `close()`.
+
+Consider the file `data.txt` in the `files` directory. The file contains 5 lines of data. The following code reads the entire content of the file into a list:
+
+```python
+    f = open("files/data.txt", "r") # "r" is optional
+    data = f.readlines()
+    f.close()
+    print(data)
+```
+
+`['8.1\n', '9\n', '4.6\n', '5.2\n', '7']`
+
+**Important notes**
+
+* Each element of the list corresponds to a line of the file.
+* The newline character `\n` is included in each element of the list. To get rid of the newline character, you can use the `strip()` function. The `strip()` function removes leading and trailing whitespaces (including the newline character) from a string.
+* The values in the file are read (interpreted) as strings. If you want to convert the values to numbers (to perform calculations), you need to use the `int()` or `float()` functions.
+
+The following code reads the entire content of the file into a list and converts the values to floating-point numbers:
+
+```python
+    f = open("files/data.txt", "r")
+    data = f.readlines()
+    f.close()
+    for i in range(len(data)):
+        data[i] = float(data[i].strip())
+    print(data)
+```
+
+`[8.1, 9.0, 4.6, 5.2, 7.0]`
+
+#### Processing file content
+
+In many cases, you need to process the content of a file:
+
+* You may need to remove the newline character.
+* You may need to split the content of a file into words or numbers, or a combination of both.
+* You may need to convert (part of) the content of a file to a different format.
+
+The file `atoms.txt` contains a list of 50 atoms and their properties. For each atom the following data are given: the name of the atom, the symbol of the atom, and the atomic weight. The data are separated by comma and a space character.
+
+The following code reads the content of the file and stores the data in a nested list. Each element of the nested list corresponds to a line of the file, and each element of the nested list is a list of strings. The atomic weight is converted to a floating-point number:
+
+```python
+    f = open("files/atoms.txt", "r")
+    data = f.readlines()
+    f.close()
+    for i in range(len(data)):
+        data[i] = data[i].strip().split(", ")	# Removes new line character, white space and splits by ", "
+        data[i][-1] = float(data[i][-1])		# Of the new list, converts the last value into a float
+    print(data)
+```
+
+`[['H', 'Hydrogen', 1.008], ['He', 'Helium', 4.0026], ['Li', 'Lithium', 6.9 . . .`
+
+Note that the stripping and the splitting of the data are done in one line of code: first the newline character is removed, and then the string is split into a list of strings.
+
+#### Writing to files
+
+Writing data to a file goes as follows:
+
+* open the file
+* write the data
+* close the file
+
+You can use the `print()` function to write data to a file. The `print()` function takes an additional argument, `file`, which specifies the file object to which you want to write the data.
+
+The following code reads user input and writes these and the number of words to a file called `words.txt`:
+
+```python
+    n = 0
+    f = open("files/words.txt", "w")
+    while True:
+        word = input("Enter a word (or 'q' to quit): ")
+        if word == "q":
+            break
+        n = n + 1
+        print(word, file = f)
+    print("Number of words:", n, file = f)
+    f.close()
+```
+
+**Note**: if you forget to specify the file object `file = f`, the data will be written to the standard output (the screen).
+
+#### Reading from a directory
+
+Sometimes the data you need to process are stored in multiple files in a directory. You can read all files in a directory using the `os` module. The `os` module provides a function called `listdir()`, which returns a list of all files in a directory.
+
+The following code lists all files in the `files` directory:
+
+```python
+    import os
+    files = os.listdir("files")
+    print(files)
+```
+
+`['codontable.csv', 'photo.txt', 'data.txt', 'template.txt', 'mendelejev.txt', 'numbers.txt', 'new_directory', 'words.txt', 'surrounded.txt', 'passwords.txt', 'atoms.txt', 'weakpasswords.txt', 'random2.txt', 'pH_data', 'names.txt', 'random.txt', 'matrix.txt', 'matrix2.txt', 'species.txt']`
+
+**Example**
+
+The directory `pH_data` contains several files, each of which contains one pH measurement. The following code reads all files in the directory and stores the pH measurements as floating-point numbers in a list:
+
+```python
+    import os
+    pH = []
+    files = os.listdir("files/pH_data")
+    for file in files:
+        file = open("files/pH_data/" + file, "r")
+        pH.append(float(file.readline().strip()))
+        file.close()
+    print(pH)
+```
+
+`[6.931036696461067, 6.948686218625284, 7.049832715085693, 7.103096969166499, 6.561500654988191, . . .`
+
+Note that the command `pH.append(float(file.readline().strip()))`
+
+* reads the first (and only) line of the file,
+* removes the newline character,
+* converts the value to a floating-point number, and
+* appends the value to the list `pH`.
+
+The code will be more readible if we split this command into several lines:
+
+```python
+    import os
+    pH = []
+    files = os.listdir("files/pH_data")
+    for file in files:
+        f = open("files/pH_data/" + file, "r")
+        line = f.readline()
+        line = line.strip()
+        pH.append(float(line))
+        f.close()
+    print(pH)
+```
+
+#### The infoFunWP module
+
+The module `infoFunWP` is part of a package with the same name but is not part of the standard Python library.
+
+The module contains the following functions to **read** files:
+
+* `listRead()`: read the complete file and return a list of strings (one string per line)
+* `listReadValues()`: read the complete file and return a list of floats (one float per line)
+* `stringRead()`: read the complete file and return a **single string**
+
+The module contains the following functions to **write** files:
+
+* `listWrite()`: write a list of strings to a text file (one line per string)
+* `stringWrite()`: write a string to a text file
+
+In order to use the module, you need to install the package `infoFunWP` first. You can install the package using the following command in a terminal:
+
+```python
+    pip install infoFunWP
+```
+
+Next, you can import the module using the following command:
+
+```python
+    import infoFunWP as infoFun
+```
+
+A few examples of how to use the module are given below.
+
+The function `listReadValues()` is very useful if the file contains a single column with numerical data. The function reads the data and returns a list of floating-point numbers:
+
+```python
+# read the content of the file data.txt in the files directory
+import infoFunWP as infoFun
+data = infoFun.listReadValues("files/data.txt")
+print(data)
+
+# The code is more concise and easier to read.
+```
+
+If the file contains text data, you can use the function `listRead()` to read the data and return a list of strings:
+
+```python
+# read the content of the file names.txt in the files directory
+import infoFunWP as infoFun
+names = infoFun.listRead("files/names.txt")
+print(names)
+```
+
+When the file contains multiple columns of data such as in the file `atoms.txt`, you can use the function `listRead()` to read the data and to get a list of strings. You can then proceed to process the data:
+
+* remove the newline character
+* split each string into a list of strings
+* convert to float
+* ...
+
+```python
+# read the content of the file atoms.txt in the files directory
+import infoFunWP as infoFun
+data = infoFun.listRead("files/atoms.txt")
+for i in range(len(data)):
+    data[i] = data[i].strip().split(", ")
+    data[i][-1] = float(data[i][-1])
+print(data)
+```
+
+.
