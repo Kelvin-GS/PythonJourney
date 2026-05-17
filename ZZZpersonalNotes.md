@@ -1477,9 +1477,7 @@ x = np.zeros((3, 5)) # default dtype is float64
 print(x)
 ```
 
-`[[1. 1. 1. 1. 1.]
- [1. 1. 1. 1. 1.]
- [1. 1. 1. 1. 1.]]`
+`[[1. 1. 1. 1. 1.]  [1. 1. 1. 1. 1.]  [1. 1. 1. 1. 1.]]`
 
 #### Array attributes
 
@@ -1505,3 +1503,349 @@ print(x.ndim)	# 1
 ```
 
 Note that `x` is a 1D array.
+
+#### Numpy Indexing and slicing arrays
+
+1D NumPy arrays can be indexed and sliced in the same way as lists. The syntax for indexing and slicing **1D arrays** is as follows:
+
+```python
+    array[index]            # access an element at a specific index
+    array[start:stop:step]  # slice the array from start to stop with a step size
+```
+
+With:
+
+* `index`: the index of the element to access,
+* `start`: the starting index of the slice,
+* `stop`: the ending index of the slice (**not included** in the slice),
+* `step`: the step size between the elements in the slice.
+
+The following table summarizes some indexing and slicing possibilities (the variable `x` represents a 1D array):
+
+|    Slice    | Meaning                                                                  |
+| :----------: | ------------------------------------------------------------------------ |
+|   `x[i]`   | element at index `i` (counting starts at 0)                            |
+|  `x[i:j]`  | element `i` up to `j-1` (character `j` **not** included)     |
+|  `x[i:]`  | element from `i` up to end of `x`                                    |
+|  `x[:j]`  | element from start up to `j-1` (element  `j` **not** included) |
+| `x[i:j:k]` | elements from `i` up to `j-1` in steps of `k`                      |
+|   `x[:]`   | all elements                                                             |
+| `x[::-1]` | all elements in**reversed** order                                  |
+
+Negative indices can be used to access elements from the end of the array. The syntax for using negative indices is as follows:
+
+```python
+    array[-index]  # where index is a positive integer ranging from 1 to `len(array)`
+```
+
+The syntax for indexing and slicing **2D arrays** is as follows:
+
+```python
+    array[row, column]              # access an element at a specific row and column
+    array[start:stop:step, :]       # slice the array along the rows
+    array[:, start:stop:step]       # slice the array along the columns
+    array[start_row:stop_row:step, start_column:stop_column:step]  # slice the array along the rows and columns
+```
+
+With:
+
+* `row`: the index of the row to access,
+* `column`: the index of the column to access,
+* `start_row`: the starting index of the slice along the rows,
+* `stop_row`: the ending index of the slice along the rows (**not included** in the slice),
+* `start_column`: the starting index of the slice along the columns,
+* `stop_column`: the ending index of the slice along the columns (**not included** in the slice),
+* `step`: the step size between the elements in the slice.
+
+```python
+import numpy as np
+
+# create a 2D array with 3 rows and 5 columns with the numbers from 1 to 15
+M = np.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15]])
+print(M)
+
+# get the element in the second row and the fourth column
+print(M[1, 3])
+
+# get the first row of M
+print(M[0])
+
+# get the third column of M
+print(M[:, 2])
+
+# get the subarray of M consisting of the first two rows and the last three columns
+print(M[:2, 2:])
+```
+
+`[[ 1  2  3  4  5]  [ 6  7  8  9 10]  [11 12 13 14 15]] 9 [1 2 3 4 5] [ 3  8 13] [[ 3  4  5]  [ 8  9 10]]`
+
+#### Numpy Element based iteration
+
+1D NumPy arrays can be iterated over using a `for` loop. The syntax for iterating over the elements of an array is as follows:
+
+```python
+    for element in array:
+        # do something with element
+```
+
+2D NumPy arrays can be iterated over using nested `for` loops. The syntax for iterating over the elements of a 2D array is as follows:
+
+```python
+    for row in array:
+        for element in row:
+            # do something with element
+```
+
+Note that
+
+* the parameter `sep` in the first `print` statement is used to separate the elements of the array with a space,
+* the `print` statement after the `for` loop is used to print a newline character after each row.
+
+#### Index based iteration
+
+1D NumPy arrays can be iterated over using the `range()` function. The syntax for iterating over the elements of an array using the `range()` function is as follows:
+
+```python
+    for i in range(len(array)):
+        # do something with array[i]
+```
+
+2D NumPy arrays can be iterated over using nested `for` loops and the `range()` function. The syntax for iterating over the elements of a 2D array using the `range()` function is as follows:
+
+```python
+    r, k = array.shape
+    for i in range(r):
+        for j in range(k):
+            # do something with array[i, j]
+```
+
+Selecting subarrays is a very powerful technique. It is used in many applications, such as image processing, signal processing, and machine learning.
+
+In image processing, for example, we can use subarrays to search for objects in an image. To find an object in an image, we can use a template image that contains the object we are looking for. We can then slide the template image over the original image and compare the template image with the subarrays of the original image. If the template image matches a subarray of the original image, we have found the object. 
+
+#### Numpy Mathematical functions
+
+NumPy provides a collection of mathematical functions that operate on arrays. Some of the common mathematical functions are:
+
+* trigoniometric functions: `np.sin()`, `np.cos()`, `np.tan()`, ...
+* exponential and logarithmic functions: `np.exp()`, `np.log()`, `np.log10()`, ...
+* rounding functions: `np.fix()`, `np.round()`, ...
+* aggregation functions: `np.min()`, `np.max()`, `np.sum()`, `np.median()`, ...
+* searching functions: `np.argmax()`, `np.argmin()`, `np.nonzero()`, `np.unique()`, ...
+* logical functions: `np.all()`, `np.any()`, ...
+* mathematical constants: `np.pi`, `np.e`, ...
+
+#### **Aggregation functions**
+
+The aggregation functions operate on the entire array and **return a single value**. Some examples of using these functions are:
+
+```python
+import numpy as np
+# create a 2D array with 3 rows and 5 columns with random numbers in the interval $[-10, 10]$
+M = np.random.randint(-10, 11, (3, 5))
+print(M)
+
+# calculate the sum of all elements of M
+s = np.sum(M)
+print(s)
+
+# calculate the maximum of all elements of M
+m = np.max(M)
+print(m)
+
+# calculate the mean of all elements of M
+avg = np.mean(M)
+print(avg)
+```
+
+If we want to compute the sum (or maximum value or average) of each row or column of a 2D array, we can use the `axis` parameter. The `axis` parameter specifies the axis along which the aggregation function is applied. The syntax for using the `axis` parameter is as follows:
+
+```python
+    np.sum(array, axis = 0)  # compute the sum value along the columns
+    np.max(array, axis = 1)  # compute the maximum value along the rows
+    np.mean(array, axis = 1)  # compute the average along the rows
+```
+
+Some examples of using the `axis` parameter are:
+
+```python
+import numpy as np
+# create a 2D array with 3 rows and 5 columns with random numbers in the interval $[-10, 10]$
+M = np.random.randint(-10, 11, (3, 5))
+print(M)
+
+# calculate the sum along the columns
+s = np.sum(M, axis = 0)
+print(s)
+
+# calculate the maximum along the rows
+m = np.max(M, axis = 1)
+print(m)
+
+# calculate the mean along the rows
+avg = np.mean(M, axis = 1)
+print(avg)
+```
+
+#### **Searching functions**
+
+The searching functions `np.argmax()` and `np.argmin()` operate on the entire array and **return a single value**:
+
+* `np.argmax()`: returns the index of the maximum value in the array,
+* `np.argmin()`: returns the index of the minimum value in the array,
+
+Note that the `argmax()` and `argmin()` functions return the index of the **first occurrence** of the maximum and minimum values, respectively.
+
+#### **The `np.nonzero()` function**
+
+The `np.nonzero()` function returns the indices of the non-zero elements in the array:
+
+* 1D array: returns a tuple with the indices of the non-zero elements,
+* 2D array: returns a tuple with two arrays: the first array contains the row indices and the second array contains the column indices of the non-zero elements.
+
+#### **The `np.unique()` function**
+
+The `np.unique()` function returns the unique elements in the array:
+
+* array of numbers: returns the unique numbers in the array, sorted in ascending order,
+* array of strings: returns the unique strings in the array, sorted in lexicographical order.
+
+#### **The `np.all()` and `np.any()` functions**
+
+The `np.all()` and `np.any()` functions operate on the entire array and **return a single value**:
+
+* `np.all()`: returns `True` if all elements in the array are `True`, otherwise `False`,
+* `np.any()`: returns `True` if any element in the array is `True`, otherwise `False`.
+
+#### Numpy Logical indexing
+
+Logical indexing is a powerful feature of NumPy that allows you to access elements in an array based on a condition. We will illustrate the power of logical indexing with an example.
+
+Consider the following 2D array `M`:
+
+$$
+M = \begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9 \\
+\end{bmatrix}
+$$
+
+Suppose we want to select all elements in `M` that are even. We can do this using `for` loops as follows:
+
+```python
+import numpy as np
+# 3 times 5 matrix with random numbers between 0 and 25:
+M = np.random.randint(0, 26, (3, 5))
+
+print(M)
+
+even_elements = []
+for row in M:
+    for element in row:
+        if element % 2 == 0:
+            even_elements.append(element)
+print(even_elements)
+```
+
+However, this can be done more efficiently using logical indexing.
+Let us start by creating a boolean array `even` that is `True` for all even elements in `M` and `False` otherwise:
+
+```python
+even = M % 2 == 0
+print(even)
+```
+
+The expression `even = M % 2 == 0` returns a boolean array `even` with the same shape as `M`. The value of `even[i, j]` is `True` if `M[i, j]` is even and `False` otherwise.
+
+We can now use the boolean array `even` to select the even elements in `M`:
+
+The expression `M[even]` returns a 1D array with all elements in `M` that are even:
+
+```python
+even_elements = M[even]
+print(even_elements)
+```
+
+Note that the even elements are **selected row by row**.
+
+We can combine the previous two steps into a single line of code:
+
+```python
+    M[M % 2 == 0]
+```
+
+The expression `M[M % 2 == 0]` returns a 1D array with all elements in `M` that are even.
+
+#### Form operations
+
+Some form operations are available in NumPy. The most common form operations are:
+
+* `reshape()`: to change the shape of an array
+* `T`: to transpose an array
+* `ravel()`: to flatten an array
+* `concatenate()`: to concatenate arrays along a specified axis
+
+#### The `reshape()` function
+
+The `reshape()` function is used to change the shape of an array. The syntax for reshaping an array is as follows:
+
+```python
+    reshape(array, newshape, order = "C")
+```
+
+With:
+
+* `array`: the array to reshape,
+* `newshape`: the new shape of the array (a tuple of integers)
+* `order`: the order in which the elements of the array are read. Possible values are `'C'` (row-major order) and `'F'` (column-major order). The default value is `'C'`.
+
+If one of the dimensions in the new shape is `-1`, the value for that dimension is inferred from the length of the array and the remaining dimensions. For example, if the array has 12 elements and the new shape is `(2, -1)`, the resulting array will have 2 rows and 6 columns.
+
+#### The `T` attribute
+
+The `T` attribute is used to transpose an array. The syntax for transposing an array is as follows:
+
+```python
+    array.T
+```
+
+Note that there are no empty parentheses after `T`. This is because `T` is an **attribute of the array**, not a function.
+
+#### The `ravel()` function
+
+The `ravel()` function is used to flatten an array. The syntax for flattening an array is as follows:
+
+```python
+    ravel(array, order = "C")
+```
+
+With:
+
+* `array`: the array to flatten,
+* `order`: the order in which the elements of the array are read. Possible values are `"C"` (row-major order) and `"F"` (column-major order). The default value is `"C"`.
+
+#### The `concatenate()` function
+
+The `concatenate()` function is used to concatenate arrays along a specified axis. The syntax for concatenating arrays is as follows:
+
+```python
+    concatenate((array1, array2, ...), axis = 0)
+```
+
+With:
+
+* `array1`, `array2`, ...: a tuple with the arrays to concatenate,
+* `axis`: the axis along which to concatenate the arrays. Possible values are `0` (concatenate along the rows) and `1` (concatenate along the columns). The default value is `0`.
+
+Note that 1D arrays are always concatenated along the rows. To concatenate 1D arrays along the columns, we **need to reshape the arrays to 2D arrays first**.
+
+#### Broadcasting
+
+Broadcasting is a powerful feature of NumPy that allows you to perform mathematical operations on arrays with different shapes. The smaller array is **broadcasted** to the shape of the larger array so that the shapes of the two arrays are compatible.
+
+The rules of broadcasting are as follows:
+
+1. If the arrays have a different number of dimensions, the shape of the smaller array is **padded** with ones on its left side until the number of dimensions of the two arrays is the same.
+2. If the shape of the two arrays does not match in any dimension, the array with shape equal to 1 in that dimension is **stretched** to match the shape of the other array.
+3. If the shape of the two arrays does not match in any dimension and neither array has shape equal to 1 in that dimension, a `ValueError` is raised.
