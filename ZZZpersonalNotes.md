@@ -1331,4 +1331,177 @@ for i in range(len(data)):
 print(data)
 ```
 
-.
+#### NumPy
+
+NumPy (stands for Numerical Python) is a Python library that provides support for large, multi-dimensional arrays and matrices, along with a collection of mathematical functions to operate on these arrays. It is the fundamental package for scientific computing with Python.
+
+#### Importing the NumPy module
+
+To use NumPy, we need to import the `numpy` module. The standard way to import NumPy is by using the alias `np`.
+
+```python
+import numpy as np
+```
+
+#### Creating NumPy arrays
+
+There are several ways to create NumPy arrays. Some of the common methods are:
+
+* the `array()` function
+* the `arange()` function
+* the `linspace()` function
+* the `zeros()` and `ones()` functions
+
+#### The `array()` function
+
+The `array()` function is used to create a NumPy array from a list or a tuple. The syntax for creating an array using the `array()` function is as follows:
+
+```python
+    np.array(object, dtype = None)
+```
+
+With:
+
+* `object`: the input data,
+* `dtype`: the data type of the resulting array (optional, default is `None`). Typical values are `int`, `float`, `str`. If `dtype` is not specified, the data type is inferred from the other input arguments.
+
+```python
+import numpy as np
+
+# Create an array from a LIST
+x = np.array([1, 2, 3, 4, 5])
+print(x)
+```
+
+`[1 2 3 4 5]`
+
+```python
+# Create an array from a LIST of LISTS
+M = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+print(M)
+```
+
+```
+[[1 2 3]
+ [4 5 6]
+ [7 8 9]]
+```
+
+```python
+# Array of bools
+b = np.array([True, False, True, False, True])
+print(b)
+```
+
+`[ True False  True False  True]`
+
+In stead of typing `True` or `False`, we can use `1` or `0` to represent `True` or `False`, respectively:
+
+```python
+    np.array([1, 0, 1, 0], dtype = bool)
+```
+
+This will create the same array as in the previous example.
+
+#### The `arange()` function
+
+The `arange()` function is used to create **a 1D array with a range of values** between a start and end value. The syntax for creating an array using the `arange()` function is as follows:
+
+```python
+    np.arange(start, stop, step, dtype = None)
+```
+
+With:
+
+* `start`: the starting value of the range (optional, default is 0),
+* `stop`: the end value of the range (**not included** in the array),
+* `step`: the step size between the values in the range (optional, default is 1),
+* `dtype`: the data type of the resulting array (optional, default is `None`). Possible values are `int`, `float`, `str`. If `dtype` is not specified, the data type is inferred from the other input arguments.
+
+```python
+# decreasing array from 10 to 1
+y = np.arange(10, 0, -1)
+print(y)
+```
+
+`[10  9  8  7  6  5  4  3  2  1]`
+
+#### The `linspace()` function
+
+The `linspace()` function is used **to create a 1D array with a specified number of evenly spaced values between a start and end value**. The syntax for creating an array using the `linspace()` function is as follows:
+
+```python
+    np.linspace(start, stop, num = 50)
+```
+
+With:
+
+* `start`: the starting value of the range,
+* `stop`: the end value of the range (**included** in the array),
+* `num`: the number of values to generate (optional, default is 50),
+
+```python
+import numpy as np
+# divide the interval from 0 to 1 into 5 equal parts
+x = np.linspace(0, 1, 5)
+print(x)
+```
+
+`[0.   0.25 0.5  0.75 1.  ]`
+
+There is a nice relationship between the step size `step` on one hand and `start`, `stop` and `num` on the other hand:
+
+$$
+step = \dfrac{stop - start}{num - 1}
+$$
+
+#### The `zeros()` and `ones()` functions
+
+The `zeros()` and `ones()` functions are used to create arrays filled with zeros and ones, respectively. The syntax for creating an array using the `zeros()` and `ones()` functions is as follows:
+
+```python
+    np.zeros(shape, dtype = None)
+    np.ones(shape, dtype = None)
+```
+
+With:
+
+* `shape`: the shape of the array (a tuple of integers),
+* `dtype`: the data type of the resulting array (optional, default is `None`). Possible values are `int`, `float` and `bool`. If `dtype` is not specified, the data type is `float`.
+
+```python
+import numpy as np
+
+# create a 3x5 array of zeros
+x = np.zeros((3, 5)) # default dtype is float64
+print(x)
+```
+
+`[[1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1.]]`
+
+#### Array attributes
+
+NumPy arrays have several attributes that provide information about the array. Some of the common attributes are:
+
+* `shape`: the shape of the array (a tuple of integers),
+* `size`: the total number of elements in the array,
+* `dtype`: the data type of the elements in the array,
+* `ndim`: the number of dimensions of the array.
+
+```python
+# create a 1D array with values from 0 to 10
+x = np.arange(1, 11)
+
+# get the shape
+print(x.shape)	# (10, )
+
+# get the number of elements in x
+print(x.size)	# 10
+
+# get the number of dimensions of x
+print(x.ndim)	# 1
+```
+
+Note that `x` is a 1D array.
