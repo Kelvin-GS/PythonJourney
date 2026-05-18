@@ -1621,7 +1621,7 @@ Note that
 
 Selecting subarrays is a very powerful technique. It is used in many applications, such as image processing, signal processing, and machine learning.
 
-In image processing, for example, we can use subarrays to search for objects in an image. To find an object in an image, we can use a template image that contains the object we are looking for. We can then slide the template image over the original image and compare the template image with the subarrays of the original image. If the template image matches a subarray of the original image, we have found the object. 
+In image processing, for example, we can use subarrays to search for objects in an image. To find an object in an image, we can use a template image that contains the object we are looking for. We can then slide the template image over the original image and compare the template image with the subarrays of the original image. If the template image matches a subarray of the original image, we have found the object.
 
 #### Numpy Mathematical functions
 
@@ -1849,3 +1849,21 @@ The rules of broadcasting are as follows:
 1. If the arrays have a different number of dimensions, the shape of the smaller array is **padded** with ones on its left side until the number of dimensions of the two arrays is the same.
 2. If the shape of the two arrays does not match in any dimension, the array with shape equal to 1 in that dimension is **stretched** to match the shape of the other array.
 3. If the shape of the two arrays does not match in any dimension and neither array has shape equal to 1 in that dimension, a `ValueError` is raised.
+
+#### File I/O with `loadtxt()` and `savetxt()`
+
+NumPy provides functions to read and write arrays from and to text files. The `loadtxt()` function is used to read arrays from text files, and the `savetxt()` function is used to write arrays to text files.
+
+#### The `loadtxt()` function
+
+The `loadtxt()` function is used to read arrays from text files. The syntax for reading arrays from text files is as follows:
+
+```python
+    loadtxt(fname, dtype = float, delimiter = None)
+```
+
+With:
+
+* `fname`: the name of the file to read,
+* `dtype`: the data type of the elements in the array (optional, default is `float`),
+* `delimiter`: the delimiter used to separate the values in the file (optional, default is white space).
