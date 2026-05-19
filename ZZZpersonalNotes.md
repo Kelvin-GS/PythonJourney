@@ -1635,6 +1635,20 @@ NumPy provides a collection of mathematical functions that operate on arrays. So
 * logical functions: `np.all()`, `np.any()`, ...
 * mathematical constants: `np.pi`, `np.e`, ...
 
+#### Matrix (dot) product
+
+We can easily take the matrix product of two 2D arrays using the `@` function. The syntax for taking the matrix product of two arrays is as follows:
+
+```python
+    array1 @ array2
+```
+
+or alternatively:
+
+```python
+    np.dot(array1, array2)
+```
+
 #### **Aggregation functions**
 
 The aggregation functions operate on the entire array and **return a single value**. Some examples of using these functions are:
@@ -1812,6 +1826,12 @@ The `T` attribute is used to transpose an array. The syntax for transposing an a
 
 Note that there are no empty parentheses after `T`. This is because `T` is an **attribute of the array**, not a function.
 
+```python
+# transpose M
+N = M.T
+print(N)
+```
+
 #### The `ravel()` function
 
 The `ravel()` function is used to flatten an array. The syntax for flattening an array is as follows:
@@ -1824,6 +1844,12 @@ With:
 
 * `array`: the array to flatten,
 * `order`: the order in which the elements of the array are read. Possible values are `"C"` (row-major order) and `"F"` (column-major order). The default value is `"C"`.
+
+  ```python
+  # flatten M
+  x = M.flatten()		# You can use ravel() and flatten() interchangeably!!
+  print(x)
+  ```
 
 #### The `concatenate()` function
 
@@ -1838,7 +1864,63 @@ With:
 * `array1`, `array2`, ...: a tuple with the arrays to concatenate,
 * `axis`: the axis along which to concatenate the arrays. Possible values are `0` (concatenate along the rows) and `1` (concatenate along the columns). The default value is `0`.
 
+```python
+# concatenate 1D arrays
+res1 = np.concatenate((a, b))
+print(res1)
+```
+
 Note that 1D arrays are always concatenated along the rows. To concatenate 1D arrays along the columns, we **need to reshape the arrays to 2D arrays first**.
+
+```python
+# concatenate 1D and 2D arrays
+a = np.array([[1, 2, 3]])     # 2D array with 1 row
+res3 = np.concatenate((a, A)) 
+print(res3)
+```
+
+```python
+# concatenate 2D arrays
+res4 = np.concatenate((A, B), axis = 1)
+print(res4)
+```
+
+#### View vs. copy
+
+When we assign an array to a new variable, the new variable is a **view** of the original array, **not** a **copy**. This means that if we modify the new variable, the original array is also modified.
+
+```python
+N = M
+N[0, 0] = 100
+print(N)
+print()
+print(M)
+```
+
+`[[100   2   3   4   5]
+ [  6   7   8   9  10]
+ [ 11  12  13  14  15]]
+
+[[100   2   3   4   5]
+ [  6   7   8   9  10]
+ [ 11  12  13  14  15]]`
+
+To create a copy of an array, we can use the `copy()` method. The syntax for creating a copy of an array is as follows:
+
+```python
+    array.copy()
+```
+
+```python
+M = np.arange(1, 16).reshape(3, 5)
+N = M.copy()
+N[0, 0] = 100
+print(N)
+print()
+print(M)
+```
+
+We now observe that the original array `M` is not modified.
 
 #### Broadcasting
 
@@ -1849,6 +1931,46 @@ The rules of broadcasting are as follows:
 1. If the arrays have a different number of dimensions, the shape of the smaller array is **padded** with ones on its left side until the number of dimensions of the two arrays is the same.
 2. If the shape of the two arrays does not match in any dimension, the array with shape equal to 1 in that dimension is **stretched** to match the shape of the other array.
 3. If the shape of the two arrays does not match in any dimension and neither array has shape equal to 1 in that dimension, a `ValueError` is raised.
+
+Consider the following arrays `A`, `v`, `w` and `x`:
+
+$$
+A = 
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9 \\
+\end{bmatrix}
+\quad\quad\quad
+v = 
+\begin{bmatrix}
+1 & 2 & 3
+\end{bmatrix}
+\quad\quad\quad
+w = 
+\begin{bmatrix}
+4 \\
+5 \\
+6
+\end{bmatrix}
+\quad\quad\quad
+x = 
+\begin{bmatrix}
+7 \\
+8
+\end{bmatrix}
+$$
+
+```python
+A = np.arange(1, 10).reshape((3, 3))
+v = np.array ([1, 2, 3])
+
+# add v to each row of A
+som = A + v
+print(som)
+```
+
+`[[ 2  4  6]  [ 5  7  9]  [ 8 10 12]]`
 
 #### File I/O with `loadtxt()` and `savetxt()`
 
@@ -1867,3 +1989,105 @@ With:
 * `fname`: the name of the file to read,
 * `dtype`: the data type of the elements in the array (optional, default is `float`),
 * `delimiter`: the delimiter used to separate the values in the file (optional, default is white space).
+
+  ```python
+  # read the file data.txt from the folder files
+  data = np.loadtxt("files/data.txt")
+  print(data)
+  print(data.shape)
+  ```
+
+[8.1 9.  4.6 5.2 7. ]
+(5,)
+
+Note that the result is a 1D array. If we want the result to be a 2D array, we have to use the parameter `ndmin`:
+
+```python
+data = np.loadtxt("files/data.txt", ndmin = 2)
+print(data)
+print(data.shape)
+```
+
+#### The `savetxt()` function
+
+The `savetxt()` function is used to write arrays to text files. The syntax for writing arrays to text files is as follows:
+
+```python
+    savetxt(fname, array, fmt = "%.18e", delimiter = " ", newline = "\n")
+```
+
+With:
+
+* `fname`: the name of the file to write,
+* `array`: the array to write,
+* `fmt`: the format of the values in the file (optional, default is `%.18e`),
+* `delimiter`: the delimiter used to separate the values in the file (optional, default is a space),
+* `newline`: the character used to separate the lines in the file (optional, default is a newline character).
+
+The default `%.18e` format is a scientific notation with 18 decimal places. If you want to write the values in a different format, you can specify the format using the `fmt` parameter.
+
+```python
+# save M to the file random.txt in the folder files
+np.savetxt("files/random.txt", M)
+```
+
+#### Vectorization
+
+Vectorization is the process of converting a scalar operation into a vector operation. This means that the operation is applied to all elements of an array at once, instead of looping over the elements of the array.
+
+We used a `for` loop to calculate the mean and the standard deviation of a list of numbers:
+
+```python
+
+defstd(numbers):
+
+        xBar = mean(numbers)
+
+        sum_squares = 0
+
+for x in numbers:
+
+            sum_squares = sum_squares + (x - xBar) ** 2
+
+        stdev = (sum_squares / (len(numbers) - 1)) ** 0.5
+
+return stdev
+
+```
+
+We can use vectorization to calculate the standard deviation of an array of numbers in a single line of code:
+
+```python
+def std(x):
+    stdev = np.sqrt(np.sum((x - np.mean(x))**2) / (x.size - 1))
+    return stdev
+
+x = np.array([1, 2, 3, 4, 5, 6])
+print(std(x))
+```
+
+Another example is the calculation of the following sum:
+
+$$
+\sum\limits_{i=1}^{n} \frac{\sin(i\frac{\pi}{4})}{i} = \sin(\frac{\pi}{4}) + \frac{\sin(\frac{\pi}{2})}{2} + \frac{\sin(3\frac{\pi}{4})}{3} + \ldots + \frac{\sin(n\frac{\pi}{4})}{n}
+$$
+
+Using a `for` loop, we can calculate this sum as follows:
+
+```python
+%time
+n = 100
+s = 0
+for i in range(1, n+1):
+    s += np.sin(i*np.pi/4)/i
+print(s)
+```
+
+Using vectorization, we can calculate this sum in a single line of code:
+
+```python
+%time
+n = 100
+s = np.sum(np.sin(np.arange(1, n+1)*np.pi/4)/np.arange(1, n+1))
+print(s)
+```
