@@ -2091,3 +2091,219 @@ n = 100
 s = np.sum(np.sin(np.arange(1, n+1)*np.pi/4)/np.arange(1, n+1))
 print(s)
 ```
+
+#### Matplotlib
+
+To make use of the Matplotlib library in your Python code, you need to import it using the following statement:
+
+```python
+    import matplotlib.pyplot as plt
+```
+
+This will import the Matplotlib library `pyplot` and make its plotting functions available under the alias `plt`.
+
+#### Creating simple plots
+
+#### Line plots
+
+To create a simple line plot using Matplotlib, you can use the `plot()` function. The `plot()` function takes two arguments:
+
+* an array/list of x-coordinates and
+* an array/list of y-coordinates.
+
+The x-coordinates and y-coordinates should have the **same length**.
+
+Here is an example of how to create a simple line plot using Matplotlib:
+
+```python
+    import matplotlib.pyplot as plt
+    import numpy as np
+    x = np.arange(1, 11, 1)
+    y = x**2
+    plt.plot(x, y)
+```
+
+#### Scatter plots
+
+To create a scatter plot using Matplotlib, you can use the `scatter()` function. The `scatter()` function takes two arguments:
+
+* an array/list of x-coordinates and
+* an array/list of y-coordinates.
+
+The x-coordinates and y-coordinates should have the same length.
+
+Here is an example of how to create a simple scatter plot using Matplotlib:
+
+```python
+    import matplotlib.pyplot as plt
+    import numpy as np
+    x = np.arange(1, 11, 1)
+    y = x**2
+    plt.scatter(x, y)
+```
+
+#### Customizing the appearance of plots
+
+If desired, you can customize the appearance of the plot by adding additional arguments to the `plot()` function. For example, you can specify the color of the line using the `color` argument, the marker style using the `marker` argument, and the line style using the `linestyle` argument.
+
+The next table shows some values for each of these arguments that you can use to customize the appearance of the plot:
+
+| Letter | Color   | Symbol | Linestyle | Symbol | Marker       |
+| ------ | ------- | ------ | --------- | ------ | ------------ |
+| `b`  | blue    | `-`  | solid     | `+`  | plus sign    |
+| `c`  | cyan    | `--` | dashed    | `o`  | open circle  |
+| `y`  | yellow  | `:`  | dotted    | `*`  | star         |
+| `g`  | green   | `-.` | dash-dot  | `h`  | h            |
+| `m`  | magenta |        |           | `.`  | point        |
+| `r`  | red     |        |           | `^`  | triangle     |
+| `w`  | white   |        |           | `s`  | square       |
+| `k`  | black   |        |           | `d`  | thin diamond |
+
+Other useful arguments that you can use to customize the appearance of the plot include:
+
+* `linestyle` or `ls`: the style of the line
+* `linewidth` or `lw`: the width of the line
+* `markersize` or `ms`: the size of the markers
+* `markerfacecolor` or `mfc`: the color of the marker face
+* `markeredgecolor` or `mec`: the color of the marker edge
+
+The specification of the **linestyle, color and marker** can be combined in **a single string**. For example, to create a red line plot with square markers and a solid line, you can use the following code:
+
+```python
+    plt.plot(x, y, "rs-")
+```
+
+The string `"rs-"` specifies that
+
+* the line should be red (`"r"`),
+* the markers should be squares (`"s"`), and
+* the line style should be solid (`"-"`).
+
+Both commands will produce the **same plot**.
+
+The single string notation is a convenient shorthand for specifying the appearance of the plot. We will use this shorthand notation in the examples that follow.
+
+#### Annotations and labels
+
+You can add annotations and labels to your plots using Matplotlib. For example, you can add labels to the x-axis and y-axis using the `xlabel()` and `ylabel()` functions, and you can add a title to your plot using the `title()` function.
+
+Here is an example of how to add annotations and labels to a plot:
+
+```python
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    x = np.arange(1, 11, 1)
+    y = x**2
+    plt.plot(x, y, "rs-")
+    plt.xlabel("x")
+    plt.ylabel("y")
+    plt.title("Simple line plot")
+```
+
+If you want to place text somewhere on the plot, you can use the `text()` function. The `text()` function takes three arguments:
+
+* the x-coordinate of the text,
+* the y-coordinate of the text, and
+* the text to display.
+
+Here is an example of how to add text to a plot:
+
+```python
+plt.text(4.1, 15, "This is the point (4, 16)")
+```
+
+#### Formulas in labels and text
+
+It is also possible to use formulas in labels and text. For example, you can use LaTeX syntax to display mathematical expressions. To do this, you need to enclose the mathematical expression in dollar signs (`$`). For example, to display the expression $y = x^2$ as a label, you can use the following code:
+
+```python
+    plt.ylabel("$y = x^2$")
+```
+
+#### Superscript and subscript
+
+To place characters in superscript, you can use the caret (`^`) symbol and accolades (`{}`) to group characters. For example, to display the expression $y = x^2 + x + 1$ as a label, you can use the following code:
+
+```python
+    plt.ylabel("$y = x^{2} + x + 1$")
+```
+
+The same holds for subscripts, which can be placed using the underscore (`_`) symbol. For example, to display the expression $y = x_1 + x_2$ as a label, you can use the following code:
+
+```python
+    plt.ylabel("$y = x_{1} + x_{2}$")
+```
+
+More complex formulas can be created using LaTeX syntax. For example, to display the expression $y = \frac{x^2}{x + 1}$ as a label, you can use the following code:
+
+```python
+    plt.ylabel("$y = \dfrac{x^{2}}{x + 1}$")
+```
+
+A summation can be displayed using the following code:
+
+```python
+
+    plt.ylabel("$y = \sum_{i=1}^{n} x_{i}$")
+```
+
+The result of the code above is a label that displays the expression $y = \sum\limits_{i=1}^{n} x_{i}$.
+
+#### Overlaying multiple plots
+
+You can overlay multiple plots on the same set of axes using Matplotlib. To overlay multiple plots, you can call the `plot()` function multiple times with different sets of x-coordinates and y-coordinates.
+
+Here is an example of how to overlay multiple plots on the same set of axes:
+
+```python
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    x = np.arange(1, 11, 1)
+    y1 = x**2
+    y2 = x
+    plt.plot(x, y1, "rs-")
+    plt.plot(x, y2, "bo-")
+    plt.title('Overlaying multiple plots')
+```
+
+Execute this code in the cell below and you should see two lines plotted on the same set of axes.
+
+```python
+    plt.plot(x, y, color = "r", marker = "s")
+```
+
+#### Legends
+
+When overlaying multiple plots on the same set of axes, it is often useful to include a legend that identifies each plot. You can add a legend to your plot using the `legend()` function. The sybntax is as follows:
+
+```python
+    plt.legend(["label1", "label2", ...], loc = "location")
+```
+
+With:
+
+* `["label1", "label2", ...]` a **list of labels** for each plot, and
+* `loc = "location"` the location of the legend (optional).
+
+The `legend()` function takes **a list of labels** as the first argument, which specifies the labels to be displayed in the legend. The labels should correspond to the order in which the plots were added to the axes. The second optional argument is the location of the legend. The location can be specified using the argument `loc` and a string. The following table shows some values for the location argument that you can use to specify the location of the legend:
+
+| Location     | String             |
+| ------------ | ------------------ |
+| upper right  | `"upper right"`  |
+| upper left   | `"upper left"`   |
+| lower right  | `"lower right"`  |
+| lower left   | `"lower left"`   |
+| right        | `"right"`        |
+| center left  | `"center left"`  |
+| center right | `"center right"` |
+| lower center | `"lower center"` |
+| upper center | `"upper center"` |
+| center       | `"center"`       |
+
+Here is an example of how to add a legend to a plot:
+
+```python
+    plt.legend(["$y = x^2$", "$y = x$"], loc = "upper left")
+```
