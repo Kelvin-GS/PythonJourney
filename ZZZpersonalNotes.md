@@ -2307,3 +2307,148 @@ Here is an example of how to add a legend to a plot:
 ```python
     plt.legend(["$y = x^2$", "$y = x$"], loc = "upper left")
 ```
+
+#### Subplots
+
+You can create multiple plots in the same figure using Matplotlib. To create multiple plots, you can use the `subplot()` function. The `subplot()` function takes three arguments:
+
+* the number of rows in the grid of plots,
+* the number of columns in the grid of plots, and
+* the index of the plot in the grid of plots.
+
+Here is an example of how to create multiple plots in the same figure:
+
+```python
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    x = np.arange(1, 11, 1)
+    y1 = x**2
+    y2 = x
+
+    plt.subplot(2, 1, 1)
+    plt.plot(x, y1, "rs-")
+    plt.title("Subplot 1")
+
+    plt.subplot(2, 1, 2)
+    plt.plot(x, y2, "bo-")
+    plt.title("Subplot 2")
+```
+
+The 2 in the first argument of the `subplot()` function specifies that the grid of plots should have 2 rows, the 1 in the second argument specifies that the grid of plots should have 1 column, and the 1 in the third argument specifies that the current plot should be the first plot in the grid of plots.
+
+Note that the subplots overlap. You can prvent this by using the `tight_layout()` function. This function adjusts the spacing between subplots to prevent overlap.
+
+```python
+    plt.tight_layout()
+```
+
+#### Pie charts
+
+To create a pie chart, you can use the `pie()` function. The `pie()` function has the following syntax:
+
+```python
+    plt.pie(sizes, labels = labels)
+```
+
+With:
+
+* `sizes` a list of values that specify the sizes of the slices of the pie chart, and
+* `labels` an **optional** list of labels that specify the labels to be displayed on the slices of the pie chart.
+
+Here is an example of how to create a simple pie chart:
+
+```python
+    import matplotlib.pyplot as plt
+
+    sizes = [25, 35, 20, 20]
+    labels = ["A", "B", "C", "D"]
+    plt.pie(sizes, labels = labels)
+```
+
+#### Bar plots
+
+To create a bar plot, you can use the `bar()` function. The `bar()` function takes two arguments:
+
+* a list of x-coordinates, which specify the positions of the bars on the x-axis, and
+* a list of y-coordinates, which specify the heights of the bars.
+
+Here is an example of how to create a simple bar plot:
+
+```python
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    x = np.arange(1, 11, 1)
+    y = x**2
+    plt.bar(x, y)
+```
+
+If you want to use labels in stead of x-coordinates, you can use the `xticks()` function to specify the labels for the x-axis. The `xticks()` function takes two arguments:
+
+* a list of x-coordinates, which specify the positions of the labels on the x-axis, and
+* a list of labels, which specify the labels to be displayed on the x-axis.
+
+Here is an example of how to create a bar plot with labels on the x-axis:
+
+```python
+    import matplotlib.pyplot as plt
+
+    x = [1, 2, 3, 4, 5]
+    y = [53, 145, 48, 45, 19]
+    labels = ["a", "e", "i", "o", "u"]
+    plt.bar(x, y)
+    plt.xticks(x, labels)
+```
+
+#### Saving and closing plots
+
+You can save plots to a file using Matplotlib. To save a plot to a file, you can use the `savefig()` function. The `savefig()` function takes the filename of the file to save the plot to as an argument.
+
+Here is an example of how to save a plot to a file:
+
+```python
+    plt.savefig("figures/plot.png")
+```
+
+Add this line to the code in the cell above and execute it again. You should see a file named `plot.png` in the `figures` directory. Other file formats are also supported, such as `jpg`, `pdf`, `svg`, and others.
+
+You can close a plot using the `close()` function. The `close()` function takes no arguments. However, if you work in interactive mode (see Section 9.10)  and want to close all open plot windows, you can use the `close("all")` function:
+
+```python
+    plt.close("All")
+```
+
+#### The `imread()` and  `imshow()` functions
+
+Matplotlib provides functions for reading and displaying images (`.png`, `jpg`, etc.):
+
+* The `imread()` function can be used to read imagesb. The `imread()` function takes the filename of the image as an argument and returns an array of pixel values representing the image.
+* The `imshow()` function can be used to display images. The `imshow()` function takes an array of pixel values as an argument and displays the image represented by the pixel values.
+
+The `figures` directory contains an image named `animal.png`. You can read and display this image using the `imshow()` function:
+
+```python
+    import matplotlib.pyplot as plt
+    animal = plt.imread("figures/animal.png")
+    plt.imshow(animal)
+```
+
+#### Interactive backends
+
+Matplotlib provides interactive backends that allow you to interact with plots using the mouse and keyboard. To use an interactive backend, you have to set the backend before importing the `pyplot` module. For example, to use the `Qt` interactive backend, you can use the following code:
+
+```python
+import matplotlib
+import matplotlib.pyplot as plt
+
+matplotlib.use("qtagg")         # Don't forget to install PySide6(pip install PySide6) and then restart IDE
+plt.ion()
+
+animal = plt.imread("figures/animal.png")
+plt.imshow(animal)
+```
+
+Execute the code in the cell below and an interactive plot window should appear (see figure below) that allows you to interact with the plot using the mouse and keyboard.
+
+<img src="figures/popup.png" width="400"/>
